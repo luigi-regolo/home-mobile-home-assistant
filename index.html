@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#121312">
+  <meta name="description" content="Home Mobile con tema Edera: scopri la dashboard per Home Assistant e prova i controlli nella Live Demo.">
+  <meta property="og:title" content="Home Mobile con tema Edera · Home Assistant Dashboard">
+  <meta property="og:description" content="Una dashboard mobile per Home Assistant con tema Edera, piantina 3D e controlli da provare online.">
+  <meta property="og:image" content="https://luigi-regolo.github.io/home-mobile-home-assistant/screenshots/home-mobile-original-top.jpg">
+  <title>Home Mobile con tema Edera · Home Assistant Dashboard</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">HOME ASSISTANT DASHBOARD</p>
+      <h1 id="page-title">Home Mobile <span>con tema Edera</span></h1>
+      <p class="signature">Designed by <strong>Edera</strong></p>
+      <p class="lead">La tua casa, a portata di mano.</p>
+      <p class="description">Tutto quello che serve per gestire la casa in un’unica dashboard: piantina 3D, ambienti, luci, clima e sensori. <strong>Prova la Live Demo</strong> e scopri come portare Home Mobile nel tuo Home Assistant.</p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/luigi-regolo/Edera" target="_blank" rel="noopener noreferrer">Installa il tema Edera ↗</a>
+        <a class="button secondary" href="https://github.com/luigi-regolo/home-mobile-home-assistant#installazione-demo-in-home-assistant" target="_blank" rel="noopener noreferrer">Installa Home Mobile ↗</a>
+      </div>
+      <div class="edera-note"><span class="dot"></span><div><strong>Edera Light + Graphite Dark</strong><p>Scopri Home Mobile nella versione Graphite Dark. Con Edera puoi scegliere anche la modalità Light nel tuo Home Assistant.</p></div></div>
+      <section class="motion-promo" id="automazione-movimento" aria-labelledby="motion-title">
+        <p class="motion-kicker">AUTOMAZIONE 07 · OPZIONALE</p>
+        <h2 id="motion-title">La dashboard segue i tuoi movimenti.</h2>
+        <p class="motion-intro">Simula un sensore di movimento: l'ambiente selezionato cambia automaticamente, come nel blueprint per Home Assistant.</p>
+        <div class="motion-actions" role="group" aria-label="Simula movimento in un ambiente">
+          <button type="button" class="motion-button" data-motion-room="Piano Terra">Movimento · Piano Terra</button>
+          <button type="button" class="motion-button" data-motion-room="Primo Piano">Movimento · Primo Piano</button>
+        </div>
+        <p class="motion-current" aria-live="polite">Ambiente selezionato: <strong id="motion-selected">Primo Piano</strong></p>
+        <a class="motion-link" href="https://github.com/luigi-regolo/automazioni-home-assistant/blob/main/automations/dashboard/dashboard_automatica_movimento.yaml" target="_blank" rel="noopener noreferrer">Scopri l'automazione 07 ↗</a>
+        <p class="motion-disclaimer">Questa prova simula il cambio ambiente. Nel tuo Home Assistant il blueprint aggiorna il selettore quando il sensore rileva movimento; non cambia pagina né accende lo schermo.</p>
+      </section>
+    </section>
+    <section class="preview" aria-labelledby="preview-title">
+      <div class="preview-heading"><div><p class="eyebrow">LIVE DEMO · DATI SIMULATI</p><h2 id="preview-title">Prova Home Mobile</h2></div><span class="theme-name">EDERA · GRAPHITE DARK</span></div>
+      <div class="screen" id="screen" aria-label="Anteprima di Home Mobile con controlli dimostrativi interattivi">
+        <div class="capture capture-top" id="capture-top">
+          <img src="screenshots/home-mobile-original-top.jpg" width="709" height="1536" alt="Home Mobile: riepilogo casa e piantina 3D con tema Edera" draggable="false">
+          <button class="hotspot" data-action="cameras" style="--x:2.1;--y:19.3;--w:47;--h:8" aria-label="Telecamere Demo: cambia stato"></button>
+          <button class="hotspot" data-action="alarm" style="--x:51.2;--y:19.3;--w:47;--h:8" aria-label="Allarme Demo: cambia stato"></button>
+          <button class="hotspot" data-action="floorplan" style="--x:2.1;--y:28.25;--w:47;--h:8" aria-label="Piantina Demo: mostra o nascondi"></button>
+          <button class="hotspot" data-action="perimeter" style="--x:51.2;--y:28.25;--w:47;--h:8" aria-label="Perimetro Demo: simula apertura e chiusura"></button>
+          <select class="hotspot native-select" data-action="room" style="--x:2.1;--y:37.3;--w:95.9;--h:7.5" aria-label="Ambiente Demo: scegli il piano"><option>Piano Terra</option><option selected>Primo Piano</option></select>
+          <span class="state-value" data-for="cameras" style="--x:17.55;--y:23.8;--w:27">Acceso</span>
+          <span class="state-value" data-for="alarm" style="--x:66.9;--y:23.8;--w:28">Disattivato</span>
+          <span class="state-value" data-for="floorplan" style="--x:17.55;--y:32.9;--w:25">Acceso</span>
+          <span class="state-value" data-for="perimeter" style="--x:66.9;--y:32.9;--w:26">Chiuso</span>
+          <span class="state-value" data-for="room" style="--x:17.6;--y:41.8;--w:35">Primo Piano</span>
+          <span class="state-value count-top" data-for="lightCountTop" style="--x:41;--y:32.8;--w:6">0</span>
+        </div>
+        <div class="capture capture-bottom" id="capture-bottom">
+          <img src="screenshots/home-mobile-original-bottom.jpg" width="709" height="1536" alt="Home Mobile: sensori, prese, clima e controlli luci" draggable="false">
+          <button class="hotspot" data-action="media" style="--x:2.1;--y:11;--w:47;--h:12" aria-label="Media Demo: accendi o spegni"></button>
+          <button class="hotspot" data-action="plug" style="--x:2.1;--y:34.65;--w:47;--h:11.8" aria-label="Presa Demo: accendi o spegni"></button>
+          <button class="hotspot" data-action="climate" style="--x:51.2;--y:34.65;--w:47;--h:11.8" aria-label="Clima Demo: attiva o disattiva"></button>
+          <button class="hotspot" data-action="light0" style="--x:2.1;--y:58.3;--w:47;--h:11.8" aria-label="Luce 1 Demo: accendi o spegni"></button>
+          <button class="hotspot" data-action="light1" style="--x:51.2;--y:58.3;--w:47;--h:11.8" aria-label="Luce 2 Demo: accendi o spegni"></button>
+          <button class="hotspot" data-action="light2" style="--x:2.1;--y:71.5;--w:47;--h:11.8" aria-label="Luce 3 Demo: accendi o spegni"></button>
+          <button class="hotspot" data-action="light3" style="--x:51.2;--y:71.5;--w:47;--h:11.8" aria-label="Luce 4 Demo: accendi o spegni"></button>
+          <button class="hotspot" data-action="motion" style="--x:2.1;--y:85;--w:47;--h:11.8" aria-label="Volumetrico Demo: simula movimento"></button>
+          <button class="hotspot" data-action="door" style="--x:51.2;--y:85;--w:47;--h:11.8" aria-label="Porta Demo: simula apertura e chiusura"></button>
+          <span class="state-value" data-for="media" style="--x:17.6;--y:17.7;--w:26">Spento</span>
+          <span class="state-value" data-for="plug" style="--x:17.6;--y:41;--w:28">Presa · L'altro ieri</span>
+          <span class="state-value" data-for="climate" style="--x:66.9;--y:41;--w:28">L'altro ieri</span>
+          <span class="state-value" data-for="light0" style="--x:17.6;--y:65;--w:28">L'altro ieri</span>
+          <span class="state-value" data-for="light1" style="--x:66.9;--y:65;--w:28">L'altro ieri</span>
+          <span class="state-value" data-for="light2" style="--x:17.6;--y:78.3;--w:28">7 ore fa</span>
+          <span class="state-value" data-for="light3" style="--x:66.9;--y:78.3;--w:28">L'altro ieri</span>
+          <span class="state-value" data-for="motion" style="--x:17.6;--y:91.5;--w:28">Assente · 7 ore fa</span>
+          <span class="state-value" data-for="door" style="--x:66.9;--y:91.5;--w:28">Chiuso</span>
+          <span class="state-value count-bottom" data-for="lightCount" style="--x:92;--y:52.25;--w:4">0</span>
+        </div>
+      </div>
+      <div class="demo-help" role="status" aria-live="polite" id="demo-message">Tocca una card per provare i controlli della dashboard.</div>
+      <p class="fineprint">La Live Demo utilizza dati simulati e non si collega ai dispositivi di casa o a un'istanza Home Assistant.</p>
+    </section>
+  </main>
+  <footer class="footer">Home Mobile · Home Assistant Dashboard <span>Designed by <a href="https://github.com/luigi-regolo/Edera">Edera</a></span></footer>
+</body>
+</html>

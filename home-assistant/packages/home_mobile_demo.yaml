@@ -1,0 +1,246 @@
+# Home Mobile — package demo isolato: NON controlla dispositivi reali.
+# Copiare in /config/packages/home_mobile_demo.yaml soltanto dopo backup e verifica configurazione.
+input_boolean:
+  hm_telecamere_demo:
+    name: HM Telecamere Demo
+    icon: mdi:cctv
+    initial: true
+  hm_mostra_piantina_demo:
+    name: HM Piantina Demo
+    icon: mdi:floor-plan
+    initial: true
+  hm_presa_demo:
+    name: HM Presa Demo
+    icon: mdi:power-socket-eu
+    initial: false
+  hm_clima_demo:
+    name: HM Clima Demo
+    icon: mdi:air-conditioner
+    initial: false
+  hm_media_demo:
+    name: HM Media Demo
+    icon: mdi:television-play
+    initial: false
+  hm_movimento_demo:
+    name: HM Movimento Demo
+    icon: mdi:motion-sensor
+    initial: false
+  hm_porta_aperta_demo:
+    name: HM Porta Aperta Demo
+    icon: mdi:door-open
+    initial: false
+  hm_luce_1_demo:
+    name: HM Luce 1 Demo Stato
+    icon: mdi:lightbulb
+    initial: false
+  hm_luce_2_demo:
+    name: HM Luce 2 Demo Stato
+    icon: mdi:lightbulb
+    initial: false
+  hm_luce_3_demo:
+    name: HM Luce 3 Demo Stato
+    icon: mdi:lightbulb
+    initial: false
+  hm_luce_4_demo:
+    name: HM Luce 4 Demo Stato
+    icon: mdi:lightbulb
+    initial: false
+input_select:
+  hm_allarme_demo:
+    name: HM Allarme Demo
+    options:
+    - Disattivato
+    - Casa
+    - Fuori casa
+    initial: Disattivato
+    icon: mdi:shield-home
+  hm_ambiente_demo:
+    name: HM Ambiente Demo
+    options:
+    - Piano Terra
+    - Primo Piano
+    initial: Primo Piano
+    icon: mdi:home-floor-1
+input_number:
+  hm_luce_1_livello:
+    name: HM Luce 1 Demo Luminosità
+    min: 1
+    max: 255
+    step: 1
+    initial: 170
+    mode: slider
+  hm_luce_2_livello:
+    name: HM Luce 2 Demo Luminosità
+    min: 1
+    max: 255
+    step: 1
+    initial: 170
+    mode: slider
+  hm_luce_3_livello:
+    name: HM Luce 3 Demo Luminosità
+    min: 1
+    max: 255
+    step: 1
+    initial: 170
+    mode: slider
+  hm_luce_4_livello:
+    name: HM Luce 4 Demo Luminosità
+    min: 1
+    max: 255
+    step: 1
+    initial: 170
+    mode: slider
+template:
+- light:
+  - name: HM Luce 1 Demo
+    unique_id: hm_luce_1_demo_template
+    icon: mdi:lightbulb
+    state: '{{ is_state(''input_boolean.hm_luce_1_demo'', ''on'') }}'
+    level: '{{ states(''input_number.hm_luce_1_livello'') | int(170) }}'
+    turn_on:
+      action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.hm_luce_1_demo
+    turn_off:
+      action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.hm_luce_1_demo
+    set_level:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.hm_luce_1_livello
+      data:
+        value: '{{ brightness | int(170) }}'
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.hm_luce_1_demo
+  - name: HM Luce 2 Demo
+    unique_id: hm_luce_2_demo_template
+    icon: mdi:lightbulb
+    state: '{{ is_state(''input_boolean.hm_luce_2_demo'', ''on'') }}'
+    level: '{{ states(''input_number.hm_luce_2_livello'') | int(170) }}'
+    turn_on:
+      action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.hm_luce_2_demo
+    turn_off:
+      action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.hm_luce_2_demo
+    set_level:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.hm_luce_2_livello
+      data:
+        value: '{{ brightness | int(170) }}'
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.hm_luce_2_demo
+  - name: HM Luce 3 Demo
+    unique_id: hm_luce_3_demo_template
+    icon: mdi:lightbulb
+    state: '{{ is_state(''input_boolean.hm_luce_3_demo'', ''on'') }}'
+    level: '{{ states(''input_number.hm_luce_3_livello'') | int(170) }}'
+    turn_on:
+      action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.hm_luce_3_demo
+    turn_off:
+      action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.hm_luce_3_demo
+    set_level:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.hm_luce_3_livello
+      data:
+        value: '{{ brightness | int(170) }}'
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.hm_luce_3_demo
+  - name: HM Luce 4 Demo
+    unique_id: hm_luce_4_demo_template
+    icon: mdi:lightbulb
+    state: '{{ is_state(''input_boolean.hm_luce_4_demo'', ''on'') }}'
+    level: '{{ states(''input_number.hm_luce_4_livello'') | int(170) }}'
+    turn_on:
+      action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.hm_luce_4_demo
+    turn_off:
+      action: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.hm_luce_4_demo
+    set_level:
+    - action: input_number.set_value
+      target:
+        entity_id: input_number.hm_luce_4_livello
+      data:
+        value: '{{ brightness | int(170) }}'
+    - action: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.hm_luce_4_demo
+  sensor:
+  - name: HM Luci Accese
+    unique_id: hm_luci_accese_template
+    icon: mdi:lightbulb-group
+    state: '{{ (1 if is_state(''input_boolean.hm_luce_1_demo'', ''on'') else 0) + (1 if is_state(''input_boolean.hm_luce_2_demo'',
+      ''on'') else 0) + (1 if is_state(''input_boolean.hm_luce_3_demo'', ''on'') else 0) + (1 if is_state(''input_boolean.hm_luce_4_demo'',
+      ''on'') else 0) }}'
+  - name: HM Temperatura Demo
+    unique_id: hm_temperatura_demo_template
+    device_class: temperature
+    state_class: measurement
+    unit_of_measurement: °C
+    state: '25.0'
+  - name: HM Umidita Demo
+    unique_id: hm_umidita_demo_template
+    device_class: humidity
+    state_class: measurement
+    unit_of_measurement: '%'
+    state: '47'
+  - name: HM Dispositivi Demo
+    unique_id: hm_dispositivi_demo_template
+    icon: mdi:devices
+    state: '0'
+  - name: HM Presa Potenza Demo
+    unique_id: hm_presa_potenza_demo_template
+    device_class: power
+    state_class: measurement
+    unit_of_measurement: W
+    state: '{{ 320 if is_state(''input_boolean.hm_presa_demo'',''on'') else 0 }}'
+  - name: HM Clima Potenza Demo
+    unique_id: hm_clima_potenza_demo_template
+    device_class: power
+    state_class: measurement
+    unit_of_measurement: W
+    state: '{{ 700 if is_state(''input_boolean.hm_clima_demo'',''on'') else 0 }}'
+  - name: HM Presa Consumo Demo
+    unique_id: hm_presa_consumo_demo_template
+    device_class: energy
+    state_class: total_increasing
+    unit_of_measurement: kWh
+    state: '0.6'
+  - name: HM Volumetrico Batteria Demo
+    unique_id: hm_volumetrico_batteria_demo_template
+    device_class: battery
+    unit_of_measurement: '%'
+    state: '82'
+  - name: HM Porta Batteria Demo
+    unique_id: hm_porta_batteria_demo_template
+    device_class: battery
+    unit_of_measurement: '%'
+    state: '75'
+  binary_sensor:
+  - name: HM Volumetrico Demo
+    unique_id: hm_volumetrico_demo_template
+    device_class: motion
+    state: '{{ is_state(''input_boolean.hm_movimento_demo'',''on'') }}'
+  - name: HM Porta Demo
+    unique_id: hm_porta_demo_template
+    device_class: door
+    state: '{{ is_state(''input_boolean.hm_porta_aperta_demo'',''on'') }}'
+  - name: HM Perimetro Demo
+    unique_id: hm_perimetro_demo_template
+    device_class: door
+    state: '{{ is_state(''input_boolean.hm_porta_aperta_demo'',''on'') }}'

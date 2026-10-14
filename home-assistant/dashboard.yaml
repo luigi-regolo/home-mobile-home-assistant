@@ -1,0 +1,650 @@
+# Home Mobile — Dashboard demo, tema Edera consigliato.
+# Richiede Bubble Card installata via HACS.
+# Importare nell'editor di configurazione grezza di una nuova dashboard.
+title: Home Mobile
+views:
+- type: sections
+  max_columns: 1
+  icon: mdi:cellphone
+  path: home-mobile
+  dense_section_placement: false
+  sections:
+  - type: grid
+    cards:
+    - type: horizontal-stack
+      cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        sub_button:
+          main:
+          - entity: binary_sensor.hm_volumetrico_demo
+            state_background: true
+            show_background: false
+            show_state: false
+            visibility:
+            - condition: state
+              entity: binary_sensor.hm_volumetrico_demo
+              state: 'on'
+            name: Movimento casa
+          bottom: []
+        show_icon: true
+        show_name: true
+        show_state: true
+        invert_slider_value: false
+        tap_action:
+          action: toggle
+        button_action:
+          tap_action:
+            action: toggle
+        entity: input_boolean.hm_telecamere_demo
+        scrolling_effect: true
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        sub_button:
+          main: []
+          bottom: []
+        tap_action:
+          action: more-info
+        button_action:
+          tap_action:
+            action: more-info
+        show_state: true
+        show_last_updated: false
+        force_icon: false
+        show_attribute: false
+        attribute: DisarmedBy
+        entity: input_select.hm_allarme_demo
+    - type: horizontal-stack
+      cards:
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        sub_button:
+          main:
+          - name: Luci accese
+            entity: sensor.hm_luci_accese
+            show_state: true
+            show_background: false
+            force_icon: false
+            show_attribute: false
+            tap_action:
+              action: none
+            visibility: []
+            state_background: false
+          bottom: []
+        show_icon: true
+        show_name: true
+        show_state: true
+        invert_slider_value: false
+        tap_action:
+          action: toggle
+        button_action:
+          tap_action:
+            action: toggle
+        entity: input_boolean.hm_mostra_piantina_demo
+        scrolling_effect: true
+        name: Piantina Demo
+      - type: custom:bubble-card
+        card_type: button
+        button_type: state
+        sub_button:
+          main: []
+          bottom: []
+        entity: binary_sensor.hm_perimetro_demo
+        name: Perimetro Demo
+    - type: custom:bubble-card
+      card_type: select
+      sub_button:
+        main: []
+        bottom: []
+      cards: []
+      button_type: switch
+      event_action:
+        tap_action:
+          action: more-info
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
+      show_state: true
+      show_name: true
+      show_attribute: false
+      entity: input_select.hm_ambiente_demo
+    - type: picture-elements
+      elements: []
+      image: /local/home-mobile/floorplan-light.png
+      dark_mode_image: /local/home-mobile/floorplan-dark.png
+      visibility:
+      - condition: state
+        entity: input_boolean.hm_mostra_piantina_demo
+        state: 'on'
+    - type: conditional
+      conditions:
+      - condition: state
+        entity: input_select.hm_ambiente_demo
+        state: Piano Terra
+      card:
+        type: vertical-stack
+        cards:
+        - type: vertical-stack
+          cards:
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: separator
+              card_layout: normal
+              styles: ''
+              sub_button:
+                main:
+                - entity: sensor.hm_temperatura_demo
+                  show_state: true
+                  show_background: false
+                  name: Temperatura
+                - entity: sensor.hm_umidita_demo
+                  show_state: true
+                  state_background: true
+                  show_background: true
+                  name: Umidità
+              icon: mdi:home
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: button
+              button_type: switch
+              sub_button:
+                main:
+                - show_state: true
+                  show_icon: false
+                  state_background: false
+                  show_background: false
+                  scrolling_effect: false
+                  name: Potenza
+                  visibility:
+                  - condition: state
+                    entity: input_boolean.hm_presa_demo
+                    state: 'on'
+                  entity: sensor.hm_presa_potenza_demo
+                bottom: []
+              entity: input_boolean.hm_presa_demo
+              show_state: false
+              show_last_changed: false
+              show_last_updated: false
+              show_attribute: false
+              force_icon: false
+              name: Presa Demo
+              tap_action:
+                action: toggle
+            - type: custom:bubble-card
+              card_type: button
+              button_type: switch
+              sub_button:
+                main:
+                - name: Potenza
+                  show_state: true
+                  show_icon: false
+                  state_background: false
+                  show_background: false
+                  scrolling_effect: false
+                  visibility:
+                  - condition: state
+                    entity: input_boolean.hm_clima_demo
+                    state: 'on'
+                  entity: sensor.hm_clima_potenza_demo
+                bottom: []
+              entity: input_boolean.hm_clima_demo
+              show_last_changed: false
+              name: Clima Demo
+              show_state: false
+              tap_action:
+                action: toggle
+              show_attribute: false
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: button
+              button_type: state
+              sub_button:
+                main:
+                - show_state: true
+                  name: Consumi Presa Demo
+                  icon: mdi:tumble-dryer
+                  entity: sensor.hm_presa_consumo_demo
+                  scrolling_effect: false
+                  state_background: true
+                  show_icon: false
+                  show_last_updated: false
+                  show_attribute: false
+                  show_background: false
+                  visibility:
+                  - condition: state
+                    entity: input_boolean.hm_presa_demo
+                    state: 'on'
+              entity: input_boolean.hm_media_demo
+              name: Media Demo
+              tap_action:
+                action: toggle
+            - type: custom:bubble-card
+              card_type: button
+              button_type: state
+              name: Dispositivi Demo
+              entity: sensor.hm_dispositivi_demo
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: separator
+              sub_button:
+                main:
+                - name: Luci accese
+                  entity: sensor.hm_luci_accese
+                  show_state: true
+                  show_background: true
+                  force_icon: false
+                  show_attribute: false
+                  tap_action:
+                    action: none
+                bottom: []
+              card_layout: normal
+              styles: ''
+              icon: mdi:lightbulb
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: button
+              button_type: slider
+              icon: ''
+              show_last_changed: false
+              entity: light.hm_luce_1_demo
+              use_accent_color: false
+              show_name: true
+              show_state: false
+              show_attribute: false
+              slider_live_update: false
+              read_only_slider: false
+              tap_action:
+                action: more-info
+              force_icon: true
+              styles: ".bubble-button-card-container {\n  box-shadow: none !important;\n\n  --bubble-icon-color: ${state ===\
+                \ 'on'\n    ? 'var(--edera-light-color)'\n    : 'var(--state-icon-color)'};\n}\n\n.bubble-range-fill {\n \
+                \ background-color: ${state === 'on'\n    ? 'var(--edera-light-color)'\n    : 'transparent'} !important;\n\
+                \n  opacity: 1 !important;\n}"
+              name: Luce 1 Demo
+            - type: custom:bubble-card
+              card_type: button
+              button_type: slider
+              sub_button:
+                main: []
+                bottom: []
+              name: Luce 2 Demo
+              icon: ''
+              show_last_changed: false
+              entity: light.hm_luce_2_demo
+              show_state: false
+              tap_action:
+                action: more-info
+              force_icon: true
+              styles: ".bubble-button-card-container {\n  box-shadow: none !important;\n\n  --bubble-icon-color: ${state ===\
+                \ 'on'\n    ? 'var(--edera-light-color)'\n    : 'var(--state-icon-color)'};\n}\n\n.bubble-range-fill {\n \
+                \ background-color: ${state === 'on'\n    ? 'var(--edera-light-color)'\n    : 'transparent'} !important;\n\
+                \n  opacity: 1 !important;\n}"
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: button
+              button_type: slider
+              icon: ''
+              show_last_changed: false
+              entity: light.hm_luce_3_demo
+              use_accent_color: false
+              show_name: true
+              show_state: false
+              show_attribute: false
+              slider_live_update: false
+              read_only_slider: false
+              tap_action:
+                action: more-info
+              force_icon: true
+              styles: ".bubble-button-card-container {\n  box-shadow: none !important;\n\n  --bubble-icon-color: ${state ===\
+                \ 'on'\n    ? 'var(--edera-light-color)'\n    : 'var(--state-icon-color)'};\n}\n\n.bubble-range-fill {\n \
+                \ background-color: ${state === 'on'\n    ? 'var(--edera-light-color)'\n    : 'transparent'} !important;\n\
+                \n  opacity: 1 !important;\n}"
+              name: Luce 3 Demo
+            - type: custom:bubble-card
+              card_type: button
+              button_type: slider
+              sub_button:
+                main: []
+                bottom: []
+              name: Luce 4 Demo
+              icon: ''
+              show_last_changed: false
+              entity: light.hm_luce_4_demo
+              show_state: false
+              tap_action:
+                action: more-info
+              force_icon: true
+              styles: ".bubble-button-card-container {\n  box-shadow: none !important;\n\n  --bubble-icon-color: ${state ===\
+                \ 'on'\n    ? 'var(--edera-light-color)'\n    : 'var(--state-icon-color)'};\n}\n\n.bubble-range-fill {\n \
+                \ background-color: ${state === 'on'\n    ? 'var(--edera-light-color)'\n    : 'transparent'} !important;\n\
+                \n  opacity: 1 !important;\n}"
+          - type: custom:bubble-card
+            card_type: separator
+            sub_button:
+              main: []
+              bottom: []
+            card_layout: normal
+            styles: ''
+            name: SENSORI DEMO
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: button
+              button_type: state
+              sub_button:
+                main:
+                - entity: sensor.hm_volumetrico_batteria_demo
+                  show_icon: false
+                  show_state: true
+                  state_background: false
+                  scrolling_effect: true
+                  show_background: false
+                  visibility:
+                  - condition: numeric_state
+                    below: 30
+                    entity: sensor.hm_volumetrico_batteria_demo
+                bottom: []
+              icon: ''
+              show_last_changed: true
+              entity: binary_sensor.hm_volumetrico_demo
+              use_accent_color: false
+              show_name: true
+              show_state: true
+              show_attribute: false
+              name: Volumetrico Demo
+              tap_action:
+                action: none
+            - type: custom:bubble-card
+              card_type: button
+              button_type: state
+              sub_button:
+                main:
+                - entity: sensor.hm_porta_batteria_demo
+                  show_background: false
+                  show_icon: false
+                  show_state: true
+                  name: Batteria sensore
+                  visibility:
+                  - condition: numeric_state
+                    below: 30
+                    entity: sensor.hm_porta_batteria_demo
+                bottom: []
+              name: Porta Demo
+              button_action:
+                tap_action:
+                  action: more-info
+              entity: binary_sensor.hm_porta_demo
+  - type: grid
+    cards:
+    - type: conditional
+      conditions:
+      - condition: state
+        entity: input_select.hm_ambiente_demo
+        state: Primo Piano
+      card:
+        type: vertical-stack
+        cards:
+        - type: vertical-stack
+          cards:
+          - type: custom:bubble-card
+            card_type: separator
+            sub_button:
+              main: []
+              bottom: []
+            card_layout: normal
+            styles: ''
+            name: SENSORI DEMO
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: button
+              button_type: state
+              sub_button:
+                main:
+                - name: Consumi Presa Demo
+                  icon: mdi:tumble-dryer
+                  entity: sensor.hm_presa_consumo_demo
+                  scrolling_effect: false
+                  state_background: true
+                  show_icon: false
+                  show_background: false
+                  visibility:
+                  - condition: state
+                    entity: input_boolean.hm_presa_demo
+                    state: 'on'
+                  state_content: state
+              entity: input_boolean.hm_media_demo
+              name: Media Demo
+              tap_action:
+                action: toggle
+            - type: custom:bubble-card
+              card_type: button
+              button_type: state
+              name: Dispositivi Demo
+              entity: sensor.hm_dispositivi_demo
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: separator
+              card_layout: normal
+              styles: ''
+              sub_button:
+                main:
+                - entity: sensor.hm_temperatura_demo
+                  show_background: false
+                  name: Temperatura
+                  state_content: state
+                - entity: sensor.hm_umidita_demo
+                  state_background: true
+                  show_background: true
+                  name: Umidità
+                  state_content: state
+              icon: mdi:numeric-1-box
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: button
+              button_type: switch
+              sub_button:
+                main:
+                - show_state: true
+                  show_icon: false
+                  state_background: false
+                  show_background: false
+                  scrolling_effect: false
+                  name: Potenza
+                  visibility:
+                  - condition: state
+                    entity: input_boolean.hm_presa_demo
+                    state: 'on'
+                  entity: sensor.hm_presa_potenza_demo
+                bottom: []
+              entity: input_boolean.hm_presa_demo
+              show_state: false
+              show_last_changed: false
+              show_last_updated: false
+              show_attribute: false
+              force_icon: false
+              name: Presa Demo
+              tap_action:
+                action: toggle
+            - type: custom:bubble-card
+              card_type: button
+              button_type: switch
+              sub_button:
+                main:
+                - name: Potenza
+                  show_state: true
+                  show_icon: false
+                  state_background: false
+                  show_background: false
+                  scrolling_effect: false
+                  visibility:
+                  - condition: state
+                    entity: input_boolean.hm_clima_demo
+                    state: 'on'
+                  entity: sensor.hm_clima_potenza_demo
+                bottom: []
+              entity: input_boolean.hm_clima_demo
+              show_last_changed: false
+              name: Clima Demo
+              show_state: false
+              tap_action:
+                action: toggle
+              show_attribute: false
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: separator
+              sub_button:
+                main:
+                - name: Luci accese
+                  entity: sensor.hm_luci_accese
+                  show_background: true
+                  force_icon: false
+                  tap_action:
+                    action: none
+                  state_content: state
+                bottom: []
+              card_layout: normal
+              styles: ''
+              icon: mdi:lightbulb
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: button
+              button_type: slider
+              icon: ''
+              show_last_changed: false
+              entity: light.hm_luce_1_demo
+              use_accent_color: false
+              show_name: true
+              show_state: false
+              show_attribute: false
+              slider_live_update: false
+              read_only_slider: false
+              tap_action:
+                action: more-info
+              force_icon: true
+              styles: ".bubble-button-card-container {\n  box-shadow: none !important;\n\n  --bubble-icon-color: ${state ===\
+                \ 'on'\n    ? 'var(--edera-light-color)'\n    : 'var(--state-icon-color)'};\n}\n\n.bubble-range-fill {\n \
+                \ background-color: ${state === 'on'\n    ? 'var(--edera-light-color)'\n    : 'transparent'} !important;\n\
+                \n  opacity: 1 !important;\n}"
+              name: Luce 1 Demo
+            - type: custom:bubble-card
+              card_type: button
+              button_type: slider
+              sub_button:
+                main: []
+                bottom: []
+              name: Luce 2 Demo
+              icon: ''
+              show_last_changed: false
+              entity: light.hm_luce_2_demo
+              show_state: false
+              tap_action:
+                action: more-info
+              force_icon: true
+              styles: ".bubble-button-card-container {\n  box-shadow: none !important;\n\n  --bubble-icon-color: ${state ===\
+                \ 'on'\n    ? 'var(--edera-light-color)'\n    : 'var(--state-icon-color)'};\n}\n\n.bubble-range-fill {\n \
+                \ background-color: ${state === 'on'\n    ? 'var(--edera-light-color)'\n    : 'transparent'} !important;\n\
+                \n  opacity: 1 !important;\n}"
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: button
+              button_type: slider
+              icon: ''
+              show_last_changed: false
+              entity: light.hm_luce_3_demo
+              use_accent_color: false
+              show_name: true
+              show_state: false
+              show_attribute: false
+              slider_live_update: false
+              read_only_slider: false
+              tap_action:
+                action: more-info
+              force_icon: true
+              styles: ".bubble-button-card-container {\n  box-shadow: none !important;\n\n  --bubble-icon-color: ${state ===\
+                \ 'on'\n    ? 'var(--edera-light-color)'\n    : 'var(--state-icon-color)'};\n}\n\n.bubble-range-fill {\n \
+                \ background-color: ${state === 'on'\n    ? 'var(--edera-light-color)'\n    : 'transparent'} !important;\n\
+                \n  opacity: 1 !important;\n}"
+              name: Luce 3 Demo
+            - type: custom:bubble-card
+              card_type: button
+              button_type: slider
+              sub_button:
+                main: []
+                bottom: []
+              name: Luce 4 Demo
+              icon: ''
+              show_last_changed: false
+              entity: light.hm_luce_4_demo
+              show_state: false
+              tap_action:
+                action: more-info
+              force_icon: true
+              styles: ".bubble-button-card-container {\n  box-shadow: none !important;\n\n  --bubble-icon-color: ${state ===\
+                \ 'on'\n    ? 'var(--edera-light-color)'\n    : 'var(--state-icon-color)'};\n}\n\n.bubble-range-fill {\n \
+                \ background-color: ${state === 'on'\n    ? 'var(--edera-light-color)'\n    : 'transparent'} !important;\n\
+                \n  opacity: 1 !important;\n}"
+          - type: horizontal-stack
+            cards:
+            - type: custom:bubble-card
+              card_type: button
+              button_type: state
+              sub_button:
+                main:
+                - entity: sensor.hm_volumetrico_batteria_demo
+                  show_icon: false
+                  show_state: true
+                  state_background: false
+                  scrolling_effect: true
+                  show_background: false
+                  visibility:
+                  - condition: numeric_state
+                    below: 30
+                    entity: sensor.hm_volumetrico_batteria_demo
+                bottom: []
+              icon: ''
+              show_last_changed: true
+              entity: binary_sensor.hm_volumetrico_demo
+              use_accent_color: false
+              show_name: true
+              show_state: true
+              show_attribute: false
+              name: Volumetrico Demo
+              tap_action:
+                action: none
+            - type: custom:bubble-card
+              card_type: button
+              button_type: state
+              sub_button:
+                main:
+                - entity: sensor.hm_porta_batteria_demo
+                  show_background: false
+                  show_icon: false
+                  show_state: true
+                  name: Batteria sensore
+                  visibility:
+                  - condition: numeric_state
+                    below: 30
+                    entity: sensor.hm_porta_batteria_demo
+                bottom: []
+              name: Porta Demo
+              button_action:
+                tap_action:
+                  action: more-info
+              entity: binary_sensor.hm_porta_demo
+  title: Home Mobile
